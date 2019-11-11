@@ -1,0 +1,58 @@
+body {
+  font-family: 'Roboto',
+    sans-serif;
+  padding: 50px 0;
+}
+
+.btn-content {
+  margin: 50px 0;
+}
+
+.btn-push {
+  display: inline-block;
+  max-width: 180px;
+  text-align: left;
+  background-color: #ffa300;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 24px;
+  border-radius: 60px;
+  border-bottom: 4px solid #d37800;
+}
+
+.btn-push:active {
+  transform: translateY(4px);
+  border-bottom: none;
+}
+
+.flex {
+  padding: 2.5% 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 60px;
+}
+
+.flex>* {
+  min-width: 8%;
+  flex-basis: 7.5%;
+  background: #fff;
+  font-size: 30px;
+  text-align: center;
+  border-radius: 60px;
+  padding: 1.5%;
+  margin-left: 1.5%;
+}
+
+.flex,
+.flex>* {
+  border: 3px solid #aaa;
+}
+
+.is-active {
+  color: #fff;
+  background: #1ECD97;
+  border: 0px;
+}

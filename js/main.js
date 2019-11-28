@@ -18,7 +18,7 @@ function getdoubleDigestNumer(number) {
 }
 
 $(".progress-button button").click(function() {
-  let result = () => {
+  let start = () => {
     let num = Math.floor(Math.random() * max) + 1;
     if (endList.indexOf(num) >= 0) {
       num = start();

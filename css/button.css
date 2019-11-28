@@ -35,8 +35,19 @@ button {
   transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
 }
 
+/* Button style */
+.progress-button button:disabled{
+  border: 2px solid rgb(253, 87, 58);
+  color: rgb(253, 87, 58);
+}
+
 .progress-button button:hover {
   background-color: #1ECD97;
+  color: #fff;
+}
+
+.progress-button button:disabled:hover {
+  background-color: rgb(253, 87, 58);;
   color: #fff;
 }
 

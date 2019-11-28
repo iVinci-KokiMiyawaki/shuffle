@@ -1,4 +1,4 @@
-const max = 20;
+const max = 65;
 const list = [...Array(max).keys()].map(i => ++i);
 const endList = []; 
 

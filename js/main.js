@@ -1,5 +1,6 @@
-const max = 90;
+const max = 65;
 const list = [...Array(max).keys()].map(i => ++i);
+const endList = []; 
 
 $(function() {
   $(".odometer").html(00);
@@ -17,14 +18,25 @@ function getdoubleDigestNumer(number) {
 }
 
 $(".progress-button button").click(function() {
-  const result = Math.floor(Math.random() * max);
-  $(".odometer").html(getdoubleDigestNumer(result));
-  $(".progress-button").addClass("loading");
-  draw(".progress-circle path");
-  setTimeout(toggleSuccess, 2000);
-  setTimeout(function() {
-    $("#" + result).addClass("is-active");
-  }, 2500);
+  let start = () => {
+    const result = Math.floor(Math.random() * max) + 1;
+    if (endList.indexOf(result) >= 0) {
+      start();
+    }
+    $(".odometer").html(getdoubleDigestNumer(result));
+    $(".progress-button").addClass("loading");
+    draw(".progress-circle path");
+    setTimeout(toggleSuccess, 2000);
+    setTimeout(function() {
+      $("#" + result).addClass("is-active");
+    }, 2500);
+    endList.push(result);
+    if (endList.length >= max) {
+      $("button").prop("disabled", true);
+      return;
+    }
+  }
+  start();
 });
 
 var toggleSuccess = function() {
@@ -51,7 +63,6 @@ var toggleError = function() {
 
 function draw(loc) {
   var paths = document.querySelectorAll(loc);
-  console.log(paths);
   for (var i = 0; i < paths.length; i++) {
     paths[i].style.strokeDashoffset = "0";
   }

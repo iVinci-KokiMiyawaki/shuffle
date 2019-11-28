@@ -22,6 +22,7 @@ $(".progress-button button").click(function() {
     const result = Math.floor(Math.random() * max) + 1;
     if (endList.indexOf(result) >= 0) {
       start();
+      return;
     }
     $(".odometer").html(getdoubleDigestNumer(result));
     $(".progress-button").addClass("loading");

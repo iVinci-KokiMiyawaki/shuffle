@@ -18,26 +18,25 @@ function getdoubleDigestNumer(number) {
 }
 
 $(".progress-button button").click(function() {
-  let start = () => {
-    const result = Math.floor(Math.random() * max) + 1;
-    if (endList.indexOf(result) >= 0) {
-      start();
-      return;
+  let result = () => {
+    let num = Math.floor(Math.random() * max) + 1;
+    if (endList.indexOf(num) >= 0) {
+      num = start();
     }
-    $(".odometer").html(getdoubleDigestNumer(result));
-    $(".progress-button").addClass("loading");
-    draw(".progress-circle path");
-    setTimeout(toggleSuccess, 2000);
-    setTimeout(function() {
-      $("#" + result).addClass("is-active");
-    }, 2500);
-    endList.push(result);
-    if (endList.length >= max) {
-      $("button").prop("disabled", true);
-      return;
-    }
+    return num;
   }
-  start();
+  result = start();
+  $(".odometer").html(getdoubleDigestNumer(result));
+  $(".progress-button").addClass("loading");
+  draw(".progress-circle path");
+  setTimeout(toggleSuccess, 2000);
+  setTimeout(function() {
+    $("#" + result).addClass("is-active");
+  }, 2500);
+  endList.push(result);
+  if (endList.length >= max) {
+    $("button").prop("disabled", true);
+  }
 });
 
 var toggleSuccess = function() {

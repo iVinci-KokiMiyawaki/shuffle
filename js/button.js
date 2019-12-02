@@ -34,7 +34,6 @@ var toggleError = function() {
 
 function draw(loc) {
   var paths = document.querySelectorAll(loc);
-  console.log(paths);
   for (var i = 0; i < paths.length; i++) {
     paths[i].style.strokeDashoffset = "0";
   }

@@ -85,25 +85,40 @@ a:hover {
 }
 
 .scroll-list__item.item-hide {
-  opacity: 1;
-  transform: scale(0.7);
+  opacity: 0.5;
+  transform: scale(0.9);
 }
 
 .scroll-list__item.item-focus {
   opacity: 1;
   transform: scale(1);
+  background-image: linear-gradient(147deg, #fc9158 0%, #ff6492 74%);
 }
 
 .scroll-list__item.item-next {
-  opacity: 1;
-  transform: scale(1);
+  opacity: 0.5;
+  transform: scale(0.9);
 }
 
 .scroll-list__item.item-next+.scroll-list__item {
-  opacity: 1;
-  transform: scale(1);
+  opacity: 0.5;
+  transform: scale(0.8);
 }
 
 .scroll-list__item:last-child {
-  margin-bottom: 155px;
+  height: 600px;
+  border: none;
+  box-shadow: none;
+}
+
+.value-2 {
+  height: 300px;
+}
+
+.value-3 {
+  height: 500px;
+}
+
+.value-5 {
+  height: 800px;
 }

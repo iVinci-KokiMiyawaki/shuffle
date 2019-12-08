@@ -1,4 +1,5 @@
-let max = 20;
+let max = 18;
+let i = 1;
 const list = [...Array(max).keys()].map(i => ++i);
 const endList = [];
 
@@ -22,44 +23,59 @@ var numList = [
   "0017 田中 太郎",
   "0018 田中 太郎",
   "0019 田中 太郎",
-  "0020 田中 太郎"
+  "0020 田中 太郎",
+  "0021 田中 太郎",
+  "0022 田中 太郎",
+  "0023 田中 太郎",
+  "0024 田中 太郎",
+  "0025 田中 太郎",
+  "0026 田中 太郎"
 ];
 
 var goodList = [
-  "1. 賞品テキストテキストテキストテキスト",
-  "2. 賞品テキストテキストテキストテキスト",
-  "3. 賞品テキストテキストテキストテキスト",
-  "4. 賞品テキストテキストテキストテキスト",
-  "5. 賞品テキストテキストテキストテキスト",
-  "6. 賞品テキストテキストテキストテキスト",
-  "7. 賞品テキストテキストテキストテキスト",
-  "8. 賞品テキストテキストテキストテキスト",
-  "9. 賞品テキストテキストテキストテキスト",
-  "10. 賞品テキストテキストテキストテキスト",
-  "11. 賞品テキストテキストテキストテキスト",
-  "12. 賞品テキストテキストテキストテキスト",
-  "13. 賞品テキストテキストテキストテキスト",
-  "14. 賞品テキストテキストテキストテキスト",
-  "15. 賞品テキストテキストテキストテキスト",
-  "16. 賞品テキストテキストテキストテキスト",
-  "17. 賞品テキストテキストテキストテキスト",
-  "18. 賞品テキストテキストテキストテキスト",
-  "19. 賞品テキストテキストテキストテキスト",
-  "20. 賞品テキストテキストテキストテキスト"
+  { word: "夢と魔法の王国 ペアチケット", value: 1 },
+  { word: "筋肉はすべてのソリューションだ！", value: 1 },
+  { word: "女性社員イチオシ！蒸気で上機嫌！！", value: 1 },
+  { word: "話題のカナル式 ワイヤレスイヤホン！？", value: 1 },
+  { word: "牛タン煮込み3種セット（仙台煮・土手煮・赤ワイ煮）", value: 1 },
+  { word: "大人のスイーツセット", value: 1 },
+  { word: "カロリーの暴力！13000キロカロリープレゼント！！", value: 1 },
+  { word: "HARIO グラタン皿 耐熱ガラス2個セット", value: 1 },
+  { word: "アップルプレートセット", value: 1 },
+  { word: "Joseph Joseph 折りたためるまな板チョップ2ポットミニ", value: 1 },
+  { word: "ポケクリーン 500円玉も吸い上げる小型クリーナー", value: 1 },
+  { word: "ネック＆ヘッドもみもみリフレッシュ", value: 1 },
+  { word: "日本製檜の香りナチュラル生活浴用3点セット", value: 1 },
+  { word: "ランタンとトーチの２ＷＡＹアウトドアライト", value: 2 },
+  { word: "回転スタンド付ステーショナリー10点セット", value: 2 },
+  { word: "キッチン賑やかアニマルスポンジセット", value: 3 },
+  { word: "アニマル型メラミンスポンジ10個セット", value: 3 },
+  { word: "とっておきフーズどこでもカップケーキ缶", value: 5 },
+  { word: "フルーツストラップ付スイーツタオル", value: 5 },
+  { word: "", value: 1 }
 ];
 
 $(function() {
-  goodList.forEach((element, idx) => {
-    $(".scroll-list__wrp").append(
-      $("<div/>")
-        .addClass("scroll-list__item js-scroll-list-item")
-        .attr("id", ++idx)
-        .append(
-          $("<div/>")
-            .addClass("roulette")
-            .html(element)
-        )
-    );
+  goodList.forEach(({ word, value }, idx) => {
+    if (word) {
+      $(".scroll-list__wrp").append(
+        $("<div/>")
+          .addClass(`scroll-list__item js-scroll-list-item value-${value}`)
+          .attr("id", idx)
+          .append(
+            $("<div/>")
+              .addClass("roulette")
+              .html(`${idx + 1}位 ${word}`)
+          )
+      );
+    } else {
+      $(".scroll-list__wrp").append(
+        $("<div/>")
+          .addClass("scroll-list__item js-scroll-list-item")
+          .attr("id", ++idx)
+          .append($("<div/>").addClass("roulette"))
+      );
+    }
   });
 
   var Scrollbar = window.Scrollbar;
@@ -176,32 +192,37 @@ var isStop = true;
 
 function startBingo() {
   isStop = false;
-  $("#" + max).append($("<div/>").addClass("result-name"));
+  $("#" + max).append($("<div/>").addClass(`result-name-${i}`));
   rouletteResult();
 }
 
 function stopBingo() {
   // ボタンの表示切り替え
   isStop = true;
-  console.log("stop");
 }
 
 function rouletteResult() {
   var id = "";
   var num = Math.floor(Math.random() * numList.length);
+  while (!endList.indexOf(numList[num])) {
+    num = Math.floor(Math.random() * numList.length);
+  }
   // ストップボタンが押された
   if (isStop) {
     // 遅延呼び出しを解除
     clearTimeout(id);
-    $(`#${max}>.result-name`).html(numList[num]);
+    $(`#${max}>.result-name-${i}`).html(numList[num]);
     //決定した数字をリストから削除する
     endList.push(numList[num]);
-    max -= 1;
+    if (i < goodList[max].value) {
+      i++;
+    } else {
+      i = 1;
+      max -= 1;
+    }
     return false;
   }
-  console.log(num);
-  console.log($(`#${max}>.result-name`));
-  $(`#${max}>.result-name`).html(numList[num]);
+  $(`#${max}>.result-name-${i}`).html(numList[num]);
   // 100ms後に再帰的に実行するよう登録する
   id = setTimeout(rouletteResult, 100);
 }

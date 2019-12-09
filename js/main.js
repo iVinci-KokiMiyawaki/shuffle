@@ -1,38 +1,11 @@
 let max = 18;
-let i = 1;
+let prizeCount = 1;
+let roleTime = 3000;
+let endList = [];
+let numList = [];
 const list = [...Array(max).keys()].map(i => ++i);
-const endList = [];
 
-var numList = [
-  "0001 田中 太郎",
-  "0002 田中 太郎",
-  "0003 田中 太郎",
-  "0004 田中 太郎",
-  "0005 田中 太郎",
-  "0006 田中 太郎",
-  "0007 田中 太郎",
-  "0008 田中 太郎",
-  "0009 田中 太郎",
-  "0010 田中 太郎",
-  "0011 田中 太郎",
-  "0012 田中 太郎",
-  "0013 田中 太郎",
-  "0014 田中 太郎",
-  "0015 田中 太郎",
-  "0016 田中 太郎",
-  "0017 田中 太郎",
-  "0018 田中 太郎",
-  "0019 田中 太郎",
-  "0020 田中 太郎",
-  "0021 田中 太郎",
-  "0022 田中 太郎",
-  "0023 田中 太郎",
-  "0024 田中 太郎",
-  "0025 田中 太郎",
-  "0026 田中 太郎"
-];
-
-var goodList = [
+let goodList = [
   { word: "夢と魔法の王国 ペアチケット", value: 1 },
   { word: "筋肉はすべてのソリューションだ！", value: 1 },
   { word: "女性社員イチオシ！蒸気で上機嫌！！", value: 1 },
@@ -137,16 +110,37 @@ $(function() {
       }
     }
   });
+
+  var local = JSON.parse(localStorage.getItem("result"));
+  console.log(local);
+  if (local) {
+    endList = local;
+    local.forEach(name => {
+      $(`#${max}`).append($("<div/>").addClass(`result-name-${prizeCount}`));
+      $(`#${max}>.result-name-${prizeCount}`).html(name);
+      if (prizeCount < goodList[max].value) {
+        prizeCount++;
+      } else {
+        prizeCount = 1;
+        max -= 1;
+      }
+    });
+  }
 });
 
 function getdoubleDigestNumer(number) {
   return ("0" + number).slice(-2);
 }
 
+$(".load-button button").click(function() {
+  numList = JSON.parse($("#load-list").val());
+  console.log(numList);
+});
+
 $(".progress-button button").click(function() {
   console.log();
   startBingo();
-  setTimeout(stopBingo, 2000);
+  setTimeout(stopBingo, roleTime);
 });
 
 var toggleSuccess = function() {
@@ -157,7 +151,7 @@ var toggleSuccess = function() {
       .removeClass("success")
       .removeClass("loading");
     resetDashes();
-  }, 2000);
+  }, roleTime);
 };
 
 var toggleError = function() {
@@ -168,7 +162,7 @@ var toggleError = function() {
       .removeClass("error")
       .removeClass("loading");
     resetDashes();
-  }, 2000);
+  }, roleTime);
 };
 
 function draw(loc) {
@@ -192,7 +186,7 @@ var isStop = true;
 
 function startBingo() {
   isStop = false;
-  $("#" + max).append($("<div/>").addClass(`result-name-${i}`));
+  $("#" + max).append($("<div/>").addClass(`result-name-${prizeCount}`));
   rouletteResult();
 }
 
@@ -204,25 +198,26 @@ function stopBingo() {
 function rouletteResult() {
   var id = "";
   var num = Math.floor(Math.random() * numList.length);
-  while (!endList.indexOf(numList[num])) {
+  while (!endList.indexOf(numList[num].name)) {
     num = Math.floor(Math.random() * numList.length);
   }
   // ストップボタンが押された
   if (isStop) {
     // 遅延呼び出しを解除
     clearTimeout(id);
-    $(`#${max}>.result-name-${i}`).html(numList[num]);
-    //決定した数字をリストから削除する
-    endList.push(numList[num]);
-    if (i < goodList[max].value) {
-      i++;
+    $(`#${max}>.result-name-${prizeCount}`).html(numList[num].name);
+
+    endList.push(numList[num].name);
+    localStorage.setItem("result", JSON.stringify(endList));
+    if (prizeCount < goodList[max].value) {
+      prizeCount++;
     } else {
-      i = 1;
+      prizeCount = 1;
       max -= 1;
     }
     return false;
   }
-  $(`#${max}>.result-name-${i}`).html(numList[num]);
-  // 100ms後に再帰的に実行するよう登録する
+  $(`#${max}>.result-name-${prizeCount}`).html(numList[num].name);
+
   id = setTimeout(rouletteResult, 100);
 }

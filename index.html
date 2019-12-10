@@ -17,7 +17,8 @@
     <div class="wrapper">
       <div class="load-button">
         <input type="text" name="" id="load-list" />
-        <button type="button">Load</button>
+        <button type="button" id="load">Load</button>
+        <button type="button" id="star">★</button>
       </div>
       <div class="start-button">
         <form class="form-signin" id="commentForm">
@@ -59,6 +60,14 @@
       <div class="scroll-list">
         <div class="scroll-list__wrp js-scroll-content js-scroll-list"></div>
       </div>
+    </div>
+    <div class="audio">
+      <audio id="roll" preload="auto">
+        <source src="./sound/roll.mp3" type="audio/mp3" />
+      </audio>
+      <audio id="decide" preload="auto">
+        <source src="./sound/roll-finish.mp3" type="audio/mp3" />
+      </audio>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

@@ -1,6 +1,6 @@
 let max = 19;
 let prizeCount = 1;
-let rollTime = 100;
+let rollTime = 5000;
 let endList = [];
 let numList = [];
 let result = 0;

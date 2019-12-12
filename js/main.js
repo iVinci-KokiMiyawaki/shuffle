@@ -246,7 +246,6 @@ function rouletteResult() {
     }
     if (max <= 7) {
       rollTime = 10000;
-      numList = numList.filter(item => item.name.substr(0, 3) !== "TFZ");
       console.log(numList);
     }
     return false;
